@@ -7,14 +7,15 @@ USE_PROCS=$(($PROCS/2))
 
 NOW=$(date +"%Y-%m-%dT%H:%M:%S")
 BUILD_DATE=${1:-$NOW}
-BUILD_DIR=${BUILD_DIR:-"$HOME/build-$BUILD_DATE.sh"}
-BUILD_FILE=$BUILD_DIR/build.sh
+BUILD_DIR=${BUILD_DIR:-"$HOME/build-$BUILD_DATE"}
+BUILD_FILE="$BUILD_DIR/build.sh"
 echo "Writing build file: $BUILD_FILE"
 if [ -d $BUILD_DIR ]
 then
-  rm $BUILD_DIR
+  rm -rf $BUILD_DIR
 fi
-touch $BUILD_DIR
+mkdir $BUILD_DIR
+touch $BUILD_FILE
 
 echo "#!/bin/bash" >> $BUILD_FILE
 echo "BUILD_DATE=\"$BUILD_DATE\"" >> $BUILD_DATE
