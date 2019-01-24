@@ -31,7 +31,7 @@ GPERFTOOLS_VERSION=${GPERFTOOLS_VERSION:-2.7}
 echo "GPERFTOOLS_VERSION=\"$GPERFTOOLS_VERSION\"" >> $BUILD_FILE
 module load gperftools/$GPERFTOOLS_VERSION
 
-BOOST_VERSION=${BOOST_VERSION:-1.68.0-clang6.0.1}
+BOOST_VERSION=${BOOST_VERSION:-1.68.0-clang6.0.1-debug}
 echo "BOOST_VERSION=\"$BOOST_VERSION\"" >> $BUILD_FILE
 module load boost/$BOOST_VERSION
 
@@ -43,7 +43,7 @@ PAPI_VERSION=${PAPI_VERSION:-5.6.0}
 echo "PAPI_VERSION=\"$PAPI_VERSION\"" >> $BUILD_FILE
 module load papi/$PAPI_VERSION
 
-BLAZE_VERSION=${BLAZE_VERSION:-master}
+BLAZE_VERSION=${BLAZE_VERSION:-3.4}
 echo "BLAZE_VERSION=\"$BLAZE_VERSION\"" >> $BUILD_FILE
 module load blaze/$BLAZE_VERSION
 
@@ -67,6 +67,7 @@ then
   if [ ! -d $INSTALL_DIR/otf2/otf2-$OTF2_VERSION ]
   then
     echo "Installing OTF2 $OTF2_VERSION"
+    cd $INSTALL_DIR/otf2
     wget http://www.vi-hps.org/upload/packages/otf2/otf2-$OTF2_VERSION.tar.gz
     tar -xzf otf2-$OTF2_VERSION.tar.gz
     cd otf2-$OTF2_VERSION
