@@ -8,17 +8,23 @@ WORKDIR /
 # Copy helper scripts to install from various sources
 COPY apt_install.sh /apt_install.sh
 COPY pip_install.sh /pip_install.sh
-COPY tar_install.sh /tar_install.sh
+COPY boost_install.sh /boost_install.sh
+COPY hwloc_install.sh /hwloc_install.sh
+COPY otf2_install.sh /otf2_install.sh
 COPY git_install.sh /git_install.sh
 
 # Build prerequisites
 RUN ./apt_install.sh
 RUN ./pip_install.sh
-RUN ./tar_install.sh
+RUN ./boost_install.sh
+RUN ./hwloc_install.sh
+RUN ./otf2_install.sh
 RUN ./git_install.sh https://github.com/pybind/pybind11.git "-DPYBIND11_TEST=Off"
 RUN ./git_install.sh https://bitbucket.org/blaze-lib/blaze.git "-DBLAZE_SMP_THREADS=C++11"
 RUN ./git_install.sh https://github.com/STEllAR-GROUP/BlazeIterative.git "-Dblaze_DIR=$INSTALL/share/blaze/cmake"
 RUN ./git_install.sh https://github.com/BlueBrain/HighFive.git "-DUSE_BOOST=Off"
+
+ENV LD_LIBRARY_PATH $INSTALL
 
 # Build HPX
 RUN ./git_install.sh https://github.com/STEllAR-GROUP/hpx.git "\
