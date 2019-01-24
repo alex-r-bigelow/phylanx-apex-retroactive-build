@@ -31,7 +31,7 @@ GPERFTOOLS_VERSION=${GPERFTOOLS_VERSION:-2.7}
 echo "GPERFTOOLS_VERSION=\"$GPERFTOOLS_VERSION\"" >> $BUILD_FILE
 module load gperftools/$GPERFTOOLS_VERSION
 
-BOOST_VERSION=${BOOST_VERSION:-1.68.1-clang6.0.1}
+BOOST_VERSION=${BOOST_VERSION:-1.68.0-clang6.0.1}
 echo "BOOST_VERSION=\"$BOOST_VERSION\"" >> $BUILD_FILE
 module load boost/$BOOST_VERSION
 
@@ -69,12 +69,12 @@ then
     echo "Installing OTF2 $OTF2_VERSION"
     wget http://www.vi-hps.org/upload/packages/otf2/otf2-$OTF2_VERSION.tar.gz
     tar -xzf otf2-$OTF2_VERSION.tar.gz
-    cd otf2-$OTF2_DIR
+    cd otf2-$OTF2_VERSION
     ./configure CC=clang CXX=clang++ --prefix=`pwd`/otf2 --enable-shared
     make -j $USE_PROCS
     make install
     cd ..
-    rm otf2-$OTF2_DIR.tar.gz
+    rm otf2-$OTF2_VERSION.tar.gz
   fi
 fi
 
