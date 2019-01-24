@@ -7,16 +7,17 @@ USE_PROCS=$(($PROCS/2))
 
 NOW=$(date +"%Y-%m-%dT%H:%M:%S")
 BUILD_DATE=${1:-$NOW}
-BUILD_FILE=${BUILD_FILE:-"$HOME/build-$BUILD_DATE.sh"}
+BUILD_DIR=${BUILD_DIR:-"$HOME/build-$BUILD_DATE.sh"}
+BUILD_FILE=$BUILD_DIR/build.sh
 echo "Writing build file: $BUILD_FILE"
-if [ -e $BUILD_FILE ]
+if [ -d $BUILD_DIR ]
 then
-  rm $BUILD_FILE
+  rm $BUILD_DIR
 fi
-touch $BUILD_FILE
+touch $BUILD_DIR
 
 echo "#!/bin/bash" >> $BUILD_FILE
-echo "BUILD_DIR=\"$BUILD_DIR\"" >> $BUILD_FILE
+echo "BUILD_DATE=\"$BUILD_DATE\"" >> $BUILD_DATE
 
 # Load modules
 CLANG_VERSION=${CLANG_VERSION:-6.0.1}
@@ -59,8 +60,8 @@ fi
 cd $INSTALL_DIR
 
 # Install OTF2 if needed
-echo "OTF2_VERSION=\"$OTF2_VERSION\"" >> $BUILD_FILE
 OTF2_VERSION=${OTF2_VERSION:-2.1.1}
+echo "OTF2_VERSION=\"$OTF2_VERSION\"" >> $BUILD_FILE
 if [ ! -d $INSTALL_DIR/otf2 ]
 then
   mkdir $INSTALL_DIR/otf2
@@ -92,7 +93,7 @@ git checkout `git rev-list -1 --before="$BUILD_DATE" master`
 # Build hpx
 DEFAULT_HPX_PARAMS="\
  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
- -DCMAKE_INSTALL_PREFIX=. \
+ -DCMAKE_INSTALL_PREFIX=$BUILD_DIR/hpx \
  -DCMAKE_C_COMPILER=`which clang` \
  -DCMAKE_CXX_COMPILER=`which clang++` \
  -DHPX_WITH_MALLOC=tcmalloc \
@@ -118,6 +119,7 @@ mkdir build
 cd build
 cmake $HPX_PARAMS ..
 make -j $USE_PROCS -l $USE_PROCS
+make install
 
 # Clone phylanx if needed
 if [ ! -d $INSTALL_DIR/phylanx ]
@@ -131,6 +133,7 @@ git checkout `git rev-list -1 --before="$BUILD_DATE" master`
 
 # Build Phylanx
 DEFAULT_PHYLANX_PARAMS="\
+  -DCMAKE_INSTALL_PREFIX=$BUILD_DIR/phylanx \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DCMAKE_CXX_COMPILER=`which clang++` \
   -DCMAKE_C_COMPILER=`which clang` \
@@ -144,3 +147,4 @@ mkdir build
 cd build
 cmake $PHYLANX_PARAMS ..
 make -j $USE_PROCS -l $USE_PROCS
+make install
