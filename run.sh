@@ -1,5 +1,4 @@
 cd `dirname $0`
-/bin/bash setup.sh
 
 export APEX_OTF2=1
 export APEX_CSV_OUTPUT=1
