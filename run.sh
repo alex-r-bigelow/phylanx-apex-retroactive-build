@@ -1,13 +1,9 @@
-#!/bin/bash
-
-set -e
-
 cd `dirname $0`
 /bin/bash setup.sh
 
-APEX_OTF2=1
-APEX_CSV_OUTPUT=1
-APEX_TASKGRAPH_OUTPUT=1
+export APEX_OTF2=1
+export APEX_CSV_OUTPUT=1
+export APEX_TASKGRAPH_OUTPUT=1
 
 for THREADS in 8 16 24 32 36
 do
