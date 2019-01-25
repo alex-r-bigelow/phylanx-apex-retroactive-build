@@ -18,7 +18,7 @@ mkdir $BUILD_DIR
 touch $BUILD_FILE
 
 echo "#!/bin/bash" >> $BUILD_FILE
-echo "BUILD_DATE=\"$BUILD_DATE\"" >> $BUILD_DATE
+echo "BUILD_DATE=\"$BUILD_DATE\"" >> $BUILD_FILE
 
 # Load modules
 CLANG_VERSION=${CLANG_VERSION:-6.0.1}
@@ -66,17 +66,18 @@ echo "OTF2_VERSION=\"$OTF2_VERSION\"" >> $BUILD_FILE
 if [ ! -d $INSTALL_DIR/otf2 ]
 then
   mkdir $INSTALL_DIR/otf2
-  if [ ! -d $INSTALL_DIR/otf2/otf2-$OTF2_VERSION ]
+  if [ ! -d $INSTALL_DIR/otf2/$OTF2_VERSION ]
   then
     echo "Installing OTF2 $OTF2_VERSION"
-    cd $INSTALL_DIR/otf2
+    cd ~
     wget http://www.vi-hps.org/upload/packages/otf2/otf2-$OTF2_VERSION.tar.gz
     tar -xzf otf2-$OTF2_VERSION.tar.gz
     cd otf2-$OTF2_VERSION
-    ./configure CC=clang CXX=clang++ --prefix=`pwd`/otf2 --enable-shared
+    ./configure CC=clang CXX=clang++ --prefix=$INSTALL_DIR/otf2/$OTF2_VERSION --enable-shared
     make -j $USE_PROCS
     make install
     cd ..
+    rm -rf otf2-$OTF2_VERSION
     rm otf2-$OTF2_VERSION.tar.gz
   fi
 fi
