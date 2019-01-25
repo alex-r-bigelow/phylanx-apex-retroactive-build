@@ -5,7 +5,7 @@ set -e
 PROCS=$(lscpu | grep CPU.s.: | head -1 | cut -d: -f2)
 USE_PROCS=$(($PROCS/2))
 
-BUILD_DATE=date --date="${1:-`date`}" +"%s"
+BUILD_DATE=`date --date="${1:-`date`}" +"%s"`
 HUMAN_BUILD_DATE=`date --date=@$BUILD_DATE`
 BUILD_DIR=${BUILD_DIR:-"$HOME/build-$BUILD_DATE"}
 BUILD_FILE="$BUILD_DIR/setup.sh"
