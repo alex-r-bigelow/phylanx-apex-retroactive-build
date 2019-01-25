@@ -184,9 +184,11 @@ cmake $PHYLANX_PARAMS .. &>> $BUILD_DIR/log.txt
 make -j $USE_PROCS -l $USE_PROCS &>> $BUILD_DIR/log.txt
 make install &>> $BUILD_DIR/log.txt
 
-cd `dirname $0`
 echo "/bin/bash `pwd`/build.sh" >> $BUILD_FILE
-cat run.sh >> $RUN_FILE
+cp $RUN_FILE $BUILD_DIR/test.sh
+THIS_DIR=`dirname $0`
+cat $THIS_DIR/run.sh >> $RUN_FILE
+cat $THIS_DIR/test.sh >> $BUILD_DIR/test.sh
 
 echo "Finished retroactive build for $BUILD_DATE (unix timestamp for $HUMAN_BUILD_DATE)"
 echo "Finished retroactive build for $BUILD_DATE (unix timestamp for $HUMAN_BUILD_DATE)" >> $BUILD_DIR/log.txt
