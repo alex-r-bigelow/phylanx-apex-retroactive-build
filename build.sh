@@ -29,50 +29,50 @@ echo "# Retroactive settings for building $BUILD_DATE (unix timestamp for $HUMAN
 echo "export BUILD_DATE=\"$HUMAN_BUILD_DATE\"" >> $BUILD_FILE
 
 # Load modules
-CLANG_VERSION=${CLANG_VERSION:-6.0.1}
-echo "export CLANG_VERSION=\"$CLANG_VERSION\"" >> $BUILD_FILE
-echo "module load clang/$CLANG_VERSION" >> $RUN_FILE
-module load clang/$CLANG_VERSION
+PARB_CLANG_VERSION=${PARB_CLANG_VERSION:-6.0.1}
+echo "export PARB_CLANG_VERSION=\"$PARB_CLANG_VERSION\"" >> $BUILD_FILE
+echo "module load clang/$PARB_CLANG_VERSION" >> $RUN_FILE
+module load clang/$PARB_CLANG_VERSION
 
-CMAKE_VERSION=${CMAKE_VERSION:-3.9.0}
-echo "export CMAKE_VERSION=\"$CMAKE_VERSION\"" >> $BUILD_FILE
-echo "module load cmake/$CMAKE_VERSION" >> $RUN_FILE
-module load cmake/$CMAKE_VERSION
+PARB_CMAKE_VERSION=${PARB_CMAKE_VERSION:-3.9.0}
+echo "export PARB_CMAKE_VERSION=\"$PARB_CMAKE_VERSION\"" >> $BUILD_FILE
+echo "module load cmake/$PARB_CMAKE_VERSION" >> $RUN_FILE
+module load cmake/$PARB_CMAKE_VERSION
 
-GPERFTOOLS_VERSION=${GPERFTOOLS_VERSION:-2.7}
-echo "export GPERFTOOLS_VERSION=\"$GPERFTOOLS_VERSION\"" >> $BUILD_FILE
-echo "module load gperftools/$GPERFTOOLS_VERSION" >> $RUN_FILE
-module load gperftools/$GPERFTOOLS_VERSION
+PARB_GPERFTOOLS_VERSION=${PARB_GPERFTOOLS_VERSION:-2.7}
+echo "export PARB_GPERFTOOLS_VERSION=\"$PARB_GPERFTOOLS_VERSION\"" >> $BUILD_FILE
+echo "module load gperftools/$PARB_GPERFTOOLS_VERSION" >> $RUN_FILE
+module load gperftools/$PARB_GPERFTOOLS_VERSION
 
-BOOST_VERSION=${BOOST_VERSION:-1.68.0-clang6.0.1-debug}
-echo "export BOOST_VERSION=\"$BOOST_VERSION\"" >> $BUILD_FILE
-echo "module load boost/$BOOST_VERSION" >> $RUN_FILE
-module load boost/$BOOST_VERSION
+PARB_BOOST_VERSION=${PARB_BOOST_VERSION:-1.68.0-clang6.0.1-debug}
+echo "export PARB_BOOST_VERSION=\"$PARB_BOOST_VERSION\"" >> $BUILD_FILE
+echo "module load boost/$PARB_BOOST_VERSION" >> $RUN_FILE
+module load boost/$PARB_BOOST_VERSION
 
-HWLOC_VERSION=${HWLOC_VERSION:-2.0.0}
-echo "export HWLOC_VERSION=\"$HWLOC_VERSION\"" >> $BUILD_FILE
-echo "module load hwloc/$HWLOC_VERSION" >> $RUN_FILE
-module load hwloc/$HWLOC_VERSION
+PARB_HWLOC_VERSION=${PARB_HWLOC_VERSION:-2.0.0}
+echo "export PARB_HWLOC_VERSION=\"$PARB_HWLOC_VERSION\"" >> $BUILD_FILE
+echo "module load hwloc/$PARB_HWLOC_VERSION" >> $RUN_FILE
+module load hwloc/$PARB_HWLOC_VERSION
 
-PAPI_VERSION=${PAPI_VERSION:-5.6.0}
-echo "export PAPI_VERSION=\"$PAPI_VERSION\"" >> $BUILD_FILE
-echo "module load papi/$PAPI_VERSION" >> $RUN_FILE
-module load papi/$PAPI_VERSION
+PARB_PAPI_VERSION=${PARB_PAPI_VERSION:-5.6.0}
+echo "export PARB_PAPI_VERSION=\"$PARB_PAPI_VERSION\"" >> $BUILD_FILE
+echo "module load papi/$PARB_PAPI_VERSION" >> $RUN_FILE
+module load papi/$PARB_PAPI_VERSION
 
-BLAZE_VERSION=${BLAZE_VERSION:-3.4}
-echo "export BLAZE_VERSION=\"$BLAZE_VERSION\"" >> $BUILD_FILE
-echo "module load blaze/$BLAZE_VERSION" >> $RUN_FILE
-module load blaze/$BLAZE_VERSION
+PARB_BLAZE_VERSION=${PARB_BLAZE_VERSION:-3.4}
+echo "export PARB_BLAZE_VERSION=\"$PARB_BLAZE_VERSION\"" >> $BUILD_FILE
+echo "module load blaze/$PARB_BLAZE_VERSION" >> $RUN_FILE
+module load blaze/$PARB_BLAZE_VERSION
 
-PYBIND11_VERSION=${PYBIND11_VERSION:-2.2.4}
-echo "export PYBIND11_VERSION=\"$PYBIND11_VERSION\"" >> $BUILD_FILE
-echo "module load pybind11/$PYBIND11_VERSION" >> $RUN_FILE
-module load pybind11/$PYBIND11_VERSION
+PARB_PYBIND11_VERSION=${PARB_PYBIND11_VERSION:-2.2.4}
+echo "export PARB_PYBIND11_VERSION=\"$PARB_PYBIND11_VERSION\"" >> $BUILD_FILE
+echo "module load pybind11/$PARB_PYBIND11_VERSION" >> $RUN_FILE
+module load pybind11/$PARB_PYBIND11_VERSION
 
-PYTHON_VERSION=${PYTHON_VERSION:-3.6.3s}
-echo "export PYTHON_VERSION=\"$PYTHON_VERSION\"" >> $BUILD_FILE
-echo "module load python/$PYTHON_VERSION" >> $RUN_FILE
-module load python/$PYTHON_VERSION
+PARB_PYTHON_VERSION=${PARB_PYTHON_VERSION:-3.6.3s}
+echo "export PARB_PYTHON_VERSION=\"$PARB_PYTHON_VERSION\"" >> $BUILD_FILE
+echo "module load python/$PARB_PYTHON_VERSION" >> $RUN_FILE
+module load python/$PARB_PYTHON_VERSION
 
 INSTALL_DIR=${INSTALL_DIR:-$HOME/install}
 if [ ! -d $INSTALL_DIR ]
@@ -82,27 +82,27 @@ fi
 cd $INSTALL_DIR
 
 # Install OTF2 if needed
-OTF2_VERSION=${OTF2_VERSION:-2.1.1}
-echo "export OTF2_VERSION=\"$OTF2_VERSION\"" >> $BUILD_FILE
-echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$INSTALL_DIR/otf2/$OTF2_VERSION/lib" >> $RUN_FILE
+PARB_OTF2_VERSION=${PARB_OTF2_VERSION:-2.1.1}
+echo "export PARB_OTF2_VERSION=\"$PARB_OTF2_VERSION\"" >> $BUILD_FILE
+echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$INSTALL_DIR/otf2/$PARB_OTF2_VERSION/lib" >> $RUN_FILE
 if [ ! -d $INSTALL_DIR/otf2 ]
 then
   mkdir $INSTALL_DIR/otf2
 fi
-if [ ! -d $INSTALL_DIR/otf2/$OTF2_VERSION ]
+if [ ! -d $INSTALL_DIR/otf2/$PARB_OTF2_VERSION ]
 then
-  echo "Installing OTF2 $OTF2_VERSION"
-  echo "Installing OTF2 $OTF2_VERSION" >> $BUILD_DIR/log.txt
+  echo "Installing OTF2 $PARB_OTF2_VERSION"
+  echo "Installing OTF2 $PARB_OTF2_VERSION" >> $BUILD_DIR/log.txt
   cd ~/
-  wget http://www.vi-hps.org/upload/packages/otf2/otf2-$OTF2_VERSION.tar.gz
-  tar -xzf otf2-$OTF2_VERSION.tar.gz
-  cd otf2-$OTF2_VERSION
-  ./configure CC=clang CXX=clang++ --prefix=$INSTALL_DIR/otf2/$OTF2_VERSION --enable-shared
+  wget http://www.vi-hps.org/upload/packages/otf2/otf2-$PARB_OTF2_VERSION.tar.gz
+  tar -xzf otf2-$PARB_OTF2_VERSION.tar.gz
+  cd otf2-$PARB_OTF2_VERSION
+  ./configure CC=clang CXX=clang++ --prefix=$INSTALL_DIR/otf2/$PARB_OTF2_VERSION --enable-shared
   make -j $USE_PROCS
   make install
   cd ..
-  rm -rf otf2-$OTF2_VERSION
-  rm otf2-$OTF2_VERSION.tar.gz
+  rm -rf otf2-$PARB_OTF2_VERSION
+  rm otf2-$PARB_OTF2_VERSION.tar.gz
 fi
 
 # Clone hpx if needed
@@ -135,7 +135,7 @@ DEFAULT_HPX_PARAMS="\
  -DHPX_WITH_APEX_NO_UPDATE=FALSE \
  -DAPEX_WITH_ACTIVEHARMONY=FALSE \
  -DAPEX_WITH_OTF2=TRUE \
- -DOTF2_ROOT=$INSTALL_DIR/otf2/$OTF2_VERSION \
+ -DOTF2_ROOT=$INSTALL_DIR/otf2/$PARB_OTF2_VERSION \
  -DBUILD_OTF2=FALSE \
  -DBUILD_ACTIVEHARMONY=FALSE \
  -DAPEX_WITH_PAPI=TRUE \
