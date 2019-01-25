@@ -9,5 +9,5 @@ cd test_run
 
 srun -n 1 ../phylanx/bin/als_csv_instrumented \
   -t 2 \
-  --data_csv=MovieLens.csv >stdout.txt 2>stderr.txt
+  --data_csv=~/MovieLens.csv >stdout.txt 2>stderr.txt
 cd ..
