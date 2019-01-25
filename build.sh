@@ -5,11 +5,13 @@ set -e
 PROCS=$(lscpu | grep CPU.s.: | head -1 | cut -d: -f2)
 USE_PROCS=$(($PROCS/2))
 
+PARB_TARGET=${PARB_TARGET:-$HOME}
+
 BUILD_DATE=${1:-`date`}
 BUILD_DATE=`date --date="$BUILD_DATE" +"%s"`
 HUMAN_BUILD_DATE=`date --date=@$BUILD_DATE`
-BUILD_DIR=${BUILD_DIR:-"$HOME/build-$BUILD_DATE"}
-BUILD_FILE="$HOME/build-$BUILD_DATE.sh"
+BUILD_DIR=${BUILD_DIR:-"$PARB_TARGET/build-$BUILD_DATE"}
+BUILD_FILE="$PARB_TARGET/build-$BUILD_DATE.sh"
 RUN_FILE="$BUILD_DIR/run.sh"
 if [ -d $BUILD_DIR ]
 then
@@ -74,7 +76,7 @@ echo "export PARB_PYTHON_VERSION=\"$PARB_PYTHON_VERSION\"" >> $BUILD_FILE
 echo "module load python/$PARB_PYTHON_VERSION" >> $RUN_FILE
 module load python/$PARB_PYTHON_VERSION
 
-INSTALL_DIR=${INSTALL_DIR:-$HOME/install}
+INSTALL_DIR=${INSTALL_DIR:-$PARB_TARGET/install}
 if [ ! -d $INSTALL_DIR ]
 then
   mkdir $INSTALL_DIR
