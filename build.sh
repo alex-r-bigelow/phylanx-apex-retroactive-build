@@ -9,7 +9,7 @@ BUILD_DATE=${1:-`date`}
 BUILD_DATE=`date --date="$BUILD_DATE" +"%s"`
 HUMAN_BUILD_DATE=`date --date=@$BUILD_DATE`
 BUILD_DIR=${BUILD_DIR:-"$HOME/build-$BUILD_DATE"}
-BUILD_FILE="$BUILD_DIR/setup.sh"
+BUILD_FILE="$HOME/build-$BUILD_DATE.sh"
 RUN_FILE="$BUILD_DIR/run.sh"
 if [ -d $BUILD_DIR ]
 then
@@ -26,6 +26,7 @@ echo "Starting retroactive build for $BUILD_DATE (unix timestamp for $HUMAN_BUIL
 echo "#!/bin/bash" >> $BUILD_FILE
 echo "#!/bin/bash" >> $RUN_FILE
 echo "# Retroactive settings for building $BUILD_DATE (unix timestamp for $HUMAN_BUILD_DATE)" >> $BUILD_FILE
+echo "export BUILD_DATE=\"$HUMAN_BUILD_DATE\"" >> $BUILD_FILE
 
 # Load modules
 CLANG_VERSION=${CLANG_VERSION:-6.0.1}
@@ -182,6 +183,7 @@ make -j $USE_PROCS -l $USE_PROCS &>> $BUILD_DIR/log.txt
 make install &>> $BUILD_DIR/log.txt
 
 cd `dirname $0`
+echo "/bin/bash `pwd`/build.sh" >> $BUILD_FILE
 cat run.sh >> $RUN_FILE
 
 echo "Finished retroactive build for $BUILD_DATE (unix timestamp for $HUMAN_BUILD_DATE)"
