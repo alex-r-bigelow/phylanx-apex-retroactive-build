@@ -6,6 +6,7 @@ cd `dirname $0`
 
 for THREADS in 8 16 24 32 36
 do
+  rm -rf run$THREADS
   mkdir run$THREADS
   cd run$THREADS
   srun -n 1 ../phylanx/bin/als_csv_instrumented \

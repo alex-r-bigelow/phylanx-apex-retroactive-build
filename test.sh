@@ -4,6 +4,7 @@ export APEX_TASKGRAPH_OUTPUT=1
 
 cd `dirname $0`
 
+rm -rf test_run
 mkdir test_run
 cd test_run
 
