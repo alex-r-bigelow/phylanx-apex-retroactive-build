@@ -186,7 +186,7 @@ make install &>> $BUILD_DIR/build_log.txt
 
 echo "/bin/bash `pwd`/build.sh" >> $BUILD_FILE
 cp $RUN_FILE $BUILD_DIR/test.sh
-THIS_DIR=`dirname $0`
+THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cat $THIS_DIR/run.sh >> $RUN_FILE
 cat $THIS_DIR/test.sh >> $BUILD_DIR/test.sh
 
