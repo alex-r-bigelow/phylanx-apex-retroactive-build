@@ -20,10 +20,10 @@ fi
 mkdir $BUILD_DIR
 touch $BUILD_FILE
 touch $RUN_FILE
-touch $BUILD_DIR/log.txt
+touch $BUILD_DIR/build_log.txt
 
 echo "Starting retroactive build for $BUILD_DATE (unix timestamp for $HUMAN_BUILD_DATE)"
-echo "Starting retroactive build for $BUILD_DATE (unix timestamp for $HUMAN_BUILD_DATE)" >> $BUILD_DIR/log.txt
+echo "Starting retroactive build for $BUILD_DATE (unix timestamp for $HUMAN_BUILD_DATE)" >> $BUILD_DIR/build_log.txt
 
 echo "#!/bin/bash" >> $BUILD_FILE
 echo "#!/bin/bash" >> $RUN_FILE
@@ -94,7 +94,7 @@ fi
 if [ ! -d $INSTALL_DIR/otf2/$PARB_OTF2_VERSION ]
 then
   echo "Installing OTF2 $PARB_OTF2_VERSION"
-  echo "Installing OTF2 $PARB_OTF2_VERSION" >> $BUILD_DIR/log.txt
+  echo "Installing OTF2 $PARB_OTF2_VERSION" >> $BUILD_DIR/build_log.txt
   cd ~/
   wget http://www.vi-hps.org/upload/packages/otf2/otf2-$PARB_OTF2_VERSION.tar.gz
   tar -xzf otf2-$PARB_OTF2_VERSION.tar.gz
@@ -111,14 +111,14 @@ fi
 if [ ! -d $INSTALL_DIR/hpx ]
 then
   cd $INSTALL_DIR
-  git clone https://github.com/STEllAR-GROUP/hpx.git &>> $BUILD_DIR/log.txt
+  git clone https://github.com/STEllAR-GROUP/hpx.git &>> $BUILD_DIR/build_log.txt
 fi
 cd $INSTALL_DIR/hpx
 # Set the state of the hpx repository to what it was on the requested date
 HPX_HASH=`git rev-list -1 --before="$BUILD_DATE" master`
 echo "Building HPX $HPX_HASH"
-echo "Building HPX $HPX_HASH" >> $BUILD_DIR/log.txt
-git checkout $HPX_HASH &>> $BUILD_DIR/log.txt
+echo "Building HPX $HPX_HASH" >> $BUILD_DIR/build_log.txt
+git checkout $HPX_HASH &>> $BUILD_DIR/build_log.txt
 
 # Build hpx
 DEFAULT_HPX_PARAMS="\
@@ -148,22 +148,22 @@ echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$BUILD_DIR/hpx/lib:$BUILD_DIR/hpx
 rm -rf build
 mkdir build
 cd build
-cmake $HPX_PARAMS .. &>> $BUILD_DIR/log.txt
-make -j $USE_PROCS -l $USE_PROCS &>> $BUILD_DIR/log.txt
-make install &>> $BUILD_DIR/log.txt
+cmake $HPX_PARAMS .. &>> $BUILD_DIR/build_log.txt
+make -j $USE_PROCS -l $USE_PROCS &>> $BUILD_DIR/build_log.txt
+make install &>> $BUILD_DIR/build_log.txt
 
 # Clone phylanx if needed
 if [ ! -d $INSTALL_DIR/phylanx ]
 then
   cd $INSTALL_DIR
-  git clone https://github.com/STEllAR-GROUP/phylanx.git &>> $BUILD_DIR/log.txt
+  git clone https://github.com/STEllAR-GROUP/phylanx.git &>> $BUILD_DIR/build_log.txt
 fi
 cd $INSTALL_DIR/phylanx
 # Set the state of the phylanx repository to what it was on the requested date
 PHYLANX_HASH=`git rev-list -1 --before="$BUILD_DATE" master`
 echo "Building Phylanx $PHYLANX_HASH"
-echo "Building Phylanx $PHYLANX_HASH" >> $BUILD_DIR/log.txt
-git checkout $PHYLANX_HASH &>> $BUILD_DIR/log.txt
+echo "Building Phylanx $PHYLANX_HASH" >> $BUILD_DIR/build_log.txt
+git checkout $PHYLANX_HASH &>> $BUILD_DIR/build_log.txt
 
 # Build Phylanx
 DEFAULT_PHYLANX_PARAMS="\
@@ -180,9 +180,9 @@ echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$BUILD_DIR/phylanx/lib:$BUILD_DIR
 rm -rf build
 mkdir build
 cd build
-cmake $PHYLANX_PARAMS .. &>> $BUILD_DIR/log.txt
-make -j $USE_PROCS -l $USE_PROCS &>> $BUILD_DIR/log.txt
-make install &>> $BUILD_DIR/log.txt
+cmake $PHYLANX_PARAMS .. &>> $BUILD_DIR/build_log.txt
+make -j $USE_PROCS -l $USE_PROCS &>> $BUILD_DIR/build_log.txt
+make install &>> $BUILD_DIR/build_log.txt
 
 echo "/bin/bash `pwd`/build.sh" >> $BUILD_FILE
 cp $RUN_FILE $BUILD_DIR/test.sh
@@ -191,4 +191,4 @@ cat $THIS_DIR/run.sh >> $RUN_FILE
 cat $THIS_DIR/test.sh >> $BUILD_DIR/test.sh
 
 echo "Finished retroactive build for $BUILD_DATE (unix timestamp for $HUMAN_BUILD_DATE)"
-echo "Finished retroactive build for $BUILD_DATE (unix timestamp for $HUMAN_BUILD_DATE)" >> $BUILD_DIR/log.txt
+echo "Finished retroactive build for $BUILD_DATE (unix timestamp for $HUMAN_BUILD_DATE)" >> $BUILD_DIR/build_log.txt
