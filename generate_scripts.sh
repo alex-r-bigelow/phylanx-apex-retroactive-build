@@ -38,7 +38,8 @@ echo "module load blaze/3.4" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 echo "module load pybind11/2.2.4" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 # echo "module load python/3.6.3s" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 
-# Set OTF2 version in the build file
+# Set OTF2 directory and version in the build file
+echo "OTF2_DIR=\${OTF2_DIR:-\"\$HOME/otf2\"}" >> $BUILD_FILE
 echo "export OTF2_VERSION=\"2.1.1\"" >> $BUILD_FILE
 
 # Add HPX build settings to the build file

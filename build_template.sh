@@ -10,7 +10,6 @@ touch $LOG_FILE
 echo $'\n\n\n#####\nStarting retroactive build for $BUILD_DATE (unix timestamp for $HUMAN_BUILD_DATE)' |& tee -a $LOG_FILE
 
 # Install OTF2 if needed
-OTF2_DIR=${OTF2_DIR:-"$HOME/otf2"}
 if [ ! -d $OTF2_DIR ]
 then
   mkdir $OTF2_DIR
