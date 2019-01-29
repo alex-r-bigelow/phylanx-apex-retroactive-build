@@ -59,7 +59,7 @@ echo $'export HPX_PARAMS="\
  -DHPX_WITH_APEX_NO_UPDATE=FALSE \
  -DAPEX_WITH_ACTIVEHARMONY=FALSE \
  -DAPEX_WITH_OTF2=TRUE \
- -DOTF2_ROOT=\$OTF2_DIR/\$OTF2_VERSION \
+ -DOTF2_ROOT=$OTF2_DIR/$OTF2_VERSION \
  -DBUILD_OTF2=FALSE \
  -DBUILD_ACTIVEHARMONY=FALSE \
  -DAPEX_WITH_PAPI=TRUE \
@@ -74,9 +74,9 @@ echo $'export PHYLANX_PARAMS="\
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DCMAKE_CXX_COMPILER=`which clang++` \
   -DCMAKE_C_COMPILER=`which clang` \
-  -DHPX_DIR=\$TARGET_DIR/hpx/lib64/cmake/HPX \
-  -Dblaze_DIR=\$blaze_DIR \
-  -Dpybind11_DIR=\$pybind11_DIR"' >> $BUILD_FILE
+  -DHPX_DIR=$TARGET_DIR/hpx/lib64/cmake/HPX \
+  -Dblaze_DIR=$blaze_DIR \
+  -Dpybind11_DIR=$pybind11_DIR"' >> $BUILD_FILE
 
 # Add Phylanx to the run file's LD_LIBRARY_PATH (TODO: PYTHONPATH as well?)
 echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$TARGET_DIR/phylanx/lib:\$TARGET_DIR/phylanx/lib64" >> $RUN_FILE

@@ -7,7 +7,8 @@ USE_PROCS=$(($PROCS/2))
 LOG_FILE="$TARGET_DIR/log.txt"
 touch $LOG_FILE
 
-echo $'\n\n\n#####\nStarting retroactive build for $BUILD_DATE (unix timestamp for $HUMAN_BUILD_DATE)' |& tee -a $LOG_FILE
+echo $'\n\n\n#####\n' >> $LOG_FILE
+echo "Starting retroactive build for $BUILD_DATE (unix timestamp for $HUMAN_BUILD_DATE)" >> $LOG_FILE
 
 # Install OTF2 if needed
 if [ ! -d $OTF2_DIR ]
