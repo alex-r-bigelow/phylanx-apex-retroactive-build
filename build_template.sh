@@ -44,7 +44,7 @@ cd $HPX_REPO
 HPX_HASH=`git rev-list -1 --before=@$BUILD_DATE master` |& tee -a $LOG_FILE
 git checkout $HPX_HASH |& tee -a $LOG_FILE
 # Create an HPX build directory for this timestamp (don't pollute the repo directory with multiple builds)
-if [ -d $TARGET_DIR/hpx]
+if [ -d $TARGET_DIR/hpx ]
 then
   rm -rf $TARGET_DIR/hpx
 fi
@@ -68,7 +68,7 @@ cd $PHYLANX_REPO
 PHYLANX_HASH=`git rev-list -1 --before=@$BUILD_DATE master` |& tee -a $LOG_FILE
 git checkout $PHYLANX_HASH |& tee -a $LOG_FILE
 # Create an Phylanx build directory for this timestamp (don't pollute the repo directory with multiple builds)
-if [ -d $TARGET_DIR/phylanx]
+if [ -d $TARGET_DIR/phylanx ]
 then
   rm -rf $TARGET_DIR/phylanx
 fi
