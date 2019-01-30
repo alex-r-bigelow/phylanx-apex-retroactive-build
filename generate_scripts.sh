@@ -6,7 +6,7 @@ HUMAN_BUILD_DATE=`date --date=@$BUILD_DATE`
 
 TARGET_DIR=${2:-"$HOME/build-$BUILD_DATE"}
 BUILD_FILE="$TARGET_DIR/build.sh"
-RUN_FILE="$TARGET_DIR/run.sh"
+RUN_FILE="$TARGET_DIR/run_header.sh"
 
 if [ -d $TARGET_DIR ]
 then
@@ -74,7 +74,7 @@ echo $'export PHYLANX_PARAMS="\
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DCMAKE_CXX_COMPILER=`which clang++` \
   -DCMAKE_C_COMPILER=`which clang` \
-  -DHPX_DIR=$TARGET_DIR/hpx/lib64/cmake/HPX \
+  -DHPX_DIR=$TARGET_DIR/hpx/lib/cmake/HPX \
   -Dblaze_DIR=$blaze_DIR \
   -Dpybind11_DIR=$pybind11_DIR"' >> $BUILD_FILE
 
@@ -83,5 +83,7 @@ echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$TARGET_DIR/phylanx/lib:\$TARGET
 
 # Append the templates to each file
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cat $THIS_DIR/run_template.sh >> $RUN_FILE
+cat $RUN_FILE | tee $TARGET_DIR/als_small.sh $TARGET_DIR/als_large.sh
+cat $THIS_DIR/als_small.sh >> $TARGET_DIR/als_small.sh
+cat $THIS_DIR/als_large.sh >> $TARGET_DIR/als_large.sh
 cat $THIS_DIR/build_template.sh >> $BUILD_FILE

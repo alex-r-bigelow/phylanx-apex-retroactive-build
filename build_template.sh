@@ -29,7 +29,7 @@ then
   rm -rf otf2-$OTF2_VERSION
   rm otf2-$OTF2_VERSION.tar.gz
 fi
-echo "Using OTF2 $OTF2_VERSION in $OTF2_DIR\n" |& tee -a $LOG_FILE
+echo "Using OTF2 $OTF2_VERSION in $OTF2_DIR" |& tee -a $LOG_FILE
 
 # Set up HPX build
 HPX_REPO=${HPX_REPO:-"$HOME/hpx"}
@@ -72,9 +72,9 @@ if [ -d $TARGET_DIR/phylanx ]
 then
   rm -rf $TARGET_DIR/phylanx
 fi
-mkdir $TARGET_DIR/hpx
+mkdir $TARGET_DIR/phylanx
 cd $TARGET_DIR/phylanx
 # Build Phylanx
 cmake $PHYLANX_PARAMS $PHYLANX_REPO |& tee -a $LOG_FILE
 make -j $USE_PROCS -l $USE_PROCS |& tee -a $LOG_FILE
-echo "Phylanx build completed successfully\n" |& tee -a $LOG_FILE
+echo "Phylanx build completed successfully" |& tee -a $LOG_FILE
