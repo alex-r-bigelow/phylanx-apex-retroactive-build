@@ -83,7 +83,7 @@ echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$TARGET_DIR/phylanx/lib:\$TARGET
 
 # Append the templates to each file
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cat $RUN_FILE | tee $TARGET_DIR/als_small.sh $TARGET_DIR/als_large.sh
+cat $RUN_FILE | tee $TARGET_DIR/als_small.sh $TARGET_DIR/als_large.sh >/dev/null
 cat $THIS_DIR/als_small.sh >> $TARGET_DIR/als_small.sh
 cat $THIS_DIR/als_large.sh >> $TARGET_DIR/als_large.sh
 cat $THIS_DIR/build_template.sh >> $BUILD_FILE
