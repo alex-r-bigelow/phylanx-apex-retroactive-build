@@ -4,7 +4,7 @@ set -e
 PROCS=$(lscpu | grep CPU.s.: | head -1 | cut -d: -f2)
 USE_PROCS=$(($PROCS/2))
 
-LOG_FILE="$TARGET_DIR/log.txt"
+LOG_FILE="$TARGET_DIR/build_log.txt"
 touch $LOG_FILE
 
 echo $'\n\n\n#####\n' >> $LOG_FILE
