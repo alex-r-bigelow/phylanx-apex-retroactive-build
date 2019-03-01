@@ -81,3 +81,4 @@ echo "Phylanx build completed successfully" |& tee -a $LOG_FILE
 
 # Copy scripts that we want to run
 cp $PHYLANX_REPO/examples/algorithms/als/als.physl $TARGET_DIR/als.physl
+cp $PHYLANX_REPO/examples/algorithms/kmeans/kmeans.physl $TARGET_DIR/kmeans.physl
