@@ -78,3 +78,6 @@ cd $TARGET_DIR/phylanx
 cmake $PHYLANX_PARAMS $PHYLANX_REPO |& tee -a $LOG_FILE
 make -j $USE_PROCS -l $USE_PROCS |& tee -a $LOG_FILE
 echo "Phylanx build completed successfully" |& tee -a $LOG_FILE
+
+# Copy scripts that we want to run
+cp $PHYLANX_REPO/examples/algorithms/als/als.physl $TARGET_DIR/als.physl
