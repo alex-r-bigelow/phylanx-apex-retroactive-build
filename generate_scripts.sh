@@ -29,7 +29,7 @@ echo "export TARGET_DIR=\"$TARGET_DIR\"" | tee -a $BUILD_FILE $RUN_FILE >/dev/nu
 
 # Load modules for both scripts
 echo "module load clang/6.0.1" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
-echo "module load cmake/3.9.0" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
+echo "module load cmake/3.14.2" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 echo "module load gperftools/2.7" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 echo "module load boost/1.68.0-clang6.0.1-debug" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 echo "module load hwloc/2.0.0" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
