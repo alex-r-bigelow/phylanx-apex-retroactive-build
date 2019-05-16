@@ -28,13 +28,13 @@ echo "export HUMAN_BUILD_DATE=\"$HUMAN_BUILD_DATE\"" >> $BUILD_FILE
 echo "export TARGET_DIR=\"$TARGET_DIR\"" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 
 # Load modules for both scripts
-echo "module load clang/6.0.1" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
+echo "module load clang/8.0.0" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 echo "module load cmake/3.14.2" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 echo "module load gperftools/2.7" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
-echo "module load boost/1.68.0-clang6.0.1-debug" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
-echo "module load hwloc/2.0.0" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
-echo "module load papi/5.6.0"| tee -a $BUILD_FILE $RUN_FILE >/dev/null
-echo "module load blaze/3.4" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
+echo "module load boost/1.70.0-clang8.0.0-debug" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
+echo "module load hwloc/2.0.3" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
+echo "module load papi/5.7.0"| tee -a $BUILD_FILE $RUN_FILE >/dev/null
+echo "module load blaze/3.5" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 echo "module load pybind11/2.2.4" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 # echo "module load python/3.6.3s" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 
