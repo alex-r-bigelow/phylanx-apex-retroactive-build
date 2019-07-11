@@ -69,9 +69,9 @@ echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$TARGET_DIR/hpx/lib:\$TARGET_DIR
 
 # Blaze parameters
 echo $'export BLAZE_PARAMS="\
-  -DCMAKE_INSTALL_PREFIX=./"' >> $BUILD_FILE
+  -DCMAKE_INSTALL_PREFIX=../blaze"' >> $BUILD_FILE
 echo $'export BLAZE_TENSOR_PARAMS="\
-  -DCMAKE_INSTALL_PREFIX=./ \
+  -DCMAKE_INSTALL_PREFIX=../blaze_tensor \
   -Dblaze_DIR=$TARGET_DIR/blaze/share/blaze/cmake"' >> $BUILD_FILE
 
 # Add Phylanx build settings to the build file

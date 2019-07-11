@@ -57,7 +57,7 @@ echo "HPX build completed" |& tee -a $LOG_FILE
 
 # Set up / build blaze
 BLAZE_REPO=${BLAZE_REPO:-"$HOME/blaze"}
-echo "Using Blaze repository at $BLAZE_REPO" |& tee -a $LOG_FILE
+echo "Using blaze repository at $BLAZE_REPO" |& tee -a $LOG_FILE
 # Clone blaze if needed
 if [ ! -d $BLAZE_REPO ]
 then
@@ -67,21 +67,28 @@ fi
 cd $BLAZE_REPO
 BLAZE_HASH=`git rev-list -1 --before=@$BUILD_DATE master` |& tee -a $LOG_FILE
 git checkout $BLAZE_HASH |& tee -a $LOG_FILE
-# Create a blaze build directory for this timestamp (don't pollute the repo directory with multiple builds)
+# Purge the install directory if it exists
 if [ -d $TARGET_DIR/blaze ]
 then
   rm -rf $TARGET_DIR/blaze
 fi
 mkdir $TARGET_DIR/blaze
-cd $TARGET_DIR/blaze
+# Create a blaze build directory for this timestamp (don't pollute the repo directory with multiple builds)
+if [ -d $TARGET_DIR/blaze_build ]
+then
+  rm -rf $TARGET_DIR/blaze_build
+fi
+mkdir $TARGET_DIR/blaze_build
+cd $TARGET_DIR/blaze_build
 # Build blaze
 cmake $BLAZE_PARAMS $BLAZE_REPO |& tee -a $LOG_FILE
 make -j $USE_PROCS -l $USE_PROCS |& tee -a $LOG_FILE
+make install
 echo "Blaze build completed" |& tee -a $LOG_FILE
 
 # Set up / build blaze tensor
 BLAZE_TENSOR_REPO=${BLAZE_REPO:-"$HOME/blaze"}
-echo "Using Blaze tensor repository at $BLAZE_TENSOR_REPO" |& tee -a $LOG_FILE
+echo "Using blaze_tensor repository at $BLAZE_TENSOR_REPO" |& tee -a $LOG_FILE
 # Clone blaze if needed
 if [ ! -d $BLAZE_TENSOR_REPO ]
 then
@@ -91,16 +98,23 @@ fi
 cd $BLAZE_TENSOR_REPO
 BLAZE_TENSOR_HASH=`git rev-list -1 --before=@$BUILD_DATE master` |& tee -a $LOG_FILE
 git checkout $BLAZE_TENSOR_HASH |& tee -a $LOG_FILE
-# Create a blaze build directory for this timestamp (don't pollute the repo directory with multiple builds)
+# Purge the install directory if it exists
 if [ -d $TARGET_DIR/blaze_tensor ]
 then
   rm -rf $TARGET_DIR/blaze_tensor
 fi
 mkdir $TARGET_DIR/blaze_tensor
-cd $TARGET_DIR/blaze_tensor
+# Create a blaze build directory for this timestamp (don't pollute the repo directory with multiple builds)
+if [ -d $TARGET_DIR/blaze_tensor_build ]
+then
+  rm -rf $TARGET_DIR/blaze_tensor_build
+fi
+mkdir $TARGET_DIR/blaze_tensor_build
+cd $TARGET_DIR/blaze_tensor_build
 # Build blaze
 cmake $BLAZE_TENSOR_PARAMS $BLAZE_TENSOR_REPO |& tee -a $LOG_FILE
 make -j $USE_PROCS -l $USE_PROCS |& tee -a $LOG_FILE
+make install
 echo "Blaze tensor build completed" |& tee -a $LOG_FILE
 
 # Set up Phylanx build
