@@ -28,14 +28,13 @@ echo "export HUMAN_BUILD_DATE=\"$HUMAN_BUILD_DATE\"" >> $BUILD_FILE
 echo "export TARGET_DIR=\"$TARGET_DIR\"" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 
 # Load modules for both scripts
-echo "module load clang/8.0.0" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
+echo "module load clang/6.0.1" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 echo "module load cmake/3.14.2" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 echo "module load gperftools/2.7" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
-echo "module load boost/1.70.0-clang8.0.0-debug" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
-echo "module load hwloc/2.0.3" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
-echo "module load papi/5.7.0"| tee -a $BUILD_FILE $RUN_FILE >/dev/null
-echo "module load blaze/3.5" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
-echo "module load pybind11/2.2.4" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
+echo "module load boost/1.68.0-clang6.0.1-debug" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
+echo "module load hwloc" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
+echo "module load papi/5.6.0"| tee -a $BUILD_FILE $RUN_FILE >/dev/null
+echo "module load pybind11/master" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 # echo "module load python/3.6.3s" | tee -a $BUILD_FILE $RUN_FILE >/dev/null
 
 # Set OTF2 directory and version in the build file
@@ -68,6 +67,13 @@ echo $'export HPX_PARAMS="\
 # Add HPX to the run file's LD_LIBRARY_PATH
 echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:\$TARGET_DIR/hpx/lib:\$TARGET_DIR/hpx/lib64" >> $RUN_FILE
 
+# Blaze parameters
+echo $'export BLAZE_PARAMS="\
+  -DCMAKE_INSTALL_PREFIX=./"' >> $BUILD_FILE
+echo $'export BLAZE_TENSOR_PARAMS="\
+  -DCMAKE_INSTALL_PREFIX=./ \
+  -Dblaze_DIR=$TARGET_DIR/blaze/share/blaze/cmake"' >> $BUILD_FILE
+
 # Add Phylanx build settings to the build file
 echo $'export PHYLANX_PARAMS="\
   -DCMAKE_INSTALL_PREFIX=./ \
@@ -75,7 +81,10 @@ echo $'export PHYLANX_PARAMS="\
   -DCMAKE_CXX_COMPILER=`which clang++` \
   -DCMAKE_C_COMPILER=`which clang` \
   -DHPX_DIR=$TARGET_DIR/hpx/lib/cmake/HPX \
-  -Dblaze_DIR=$blaze_DIR \
+  -Dblaze_DIR=$TARGET_DIR/blaze/share/blaze/cmake \
+  -DPHYLANX_WITH_BLAZE_TENSOR=ON \
+  -DPHYLANX_WITH_PSEUDO_DEPENDENCIES=On \
+  -DBlazeTensor_DIR=$TARGET_DIR/blazetensor/share/BlazeTensor/cmake \
   -Dpybind11_DIR=$pybind11_DIR"' >> $BUILD_FILE
 
 # Add Phylanx to the run file's LD_LIBRARY_PATH (TODO: PYTHONPATH as well?)

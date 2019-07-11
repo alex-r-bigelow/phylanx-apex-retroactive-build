@@ -53,7 +53,55 @@ cd $TARGET_DIR/hpx
 # Build HPX
 cmake $HPX_PARAMS $HPX_REPO |& tee -a $LOG_FILE
 make -j $USE_PROCS -l $USE_PROCS |& tee -a $LOG_FILE
-echo "HPX build completed successfully\n" |& tee -a $LOG_FILE
+echo "HPX build completed" |& tee -a $LOG_FILE
+
+# Set up / build blaze
+BLAZE_REPO=${BLAZE_REPO:-"$HOME/blaze"}
+echo "Using Blaze repository at $BLAZE_REPO" |& tee -a $LOG_FILE
+# Clone blaze if needed
+if [ ! -d $BLAZE_REPO ]
+then
+  git clone https://bitbucket.org/blaze-lib/blaze/src/master $BLAZE_REPO |& tee -a $LOG_FILE
+fi
+# Set the state of the blaze repository to what it was on the requested date
+cd $BLAZE_REPO
+BLAZE_HASH=`git rev-list -1 --before=@$BUILD_DATE master` |& tee -a $LOG_FILE
+git checkout $BLAZE_HASH |& tee -a $LOG_FILE
+# Create a blaze build directory for this timestamp (don't pollute the repo directory with multiple builds)
+if [ -d $TARGET_DIR/blaze ]
+then
+  rm -rf $TARGET_DIR/blaze
+fi
+mkdir $TARGET_DIR/blaze
+cd $TARGET_DIR/blaze
+# Build blaze
+cmake $BLAZE_PARAMS $BLAZE_REPO |& tee -a $LOG_FILE
+make -j $USE_PROCS -l $USE_PROCS |& tee -a $LOG_FILE
+echo "Blaze build completed" |& tee -a $LOG_FILE
+
+# Set up / build blaze tensor
+BLAZE_TENSOR_REPO=${BLAZE_REPO:-"$HOME/blaze"}
+echo "Using Blaze tensor repository at $BLAZE_TENSOR_REPO" |& tee -a $LOG_FILE
+# Clone blaze if needed
+if [ ! -d $BLAZE_TENSOR_REPO ]
+then
+  git clone https://github.com/STEllAR-GROUP/blaze_tensor $BLAZE_TENSOR_REPO |& tee -a $LOG_FILE
+fi
+# Set the state of the blaze repository to what it was on the requested date
+cd $BLAZE_TENSOR_REPO
+BLAZE_TENSOR_HASH=`git rev-list -1 --before=@$BUILD_DATE master` |& tee -a $LOG_FILE
+git checkout $BLAZE_TENSOR_HASH |& tee -a $LOG_FILE
+# Create a blaze build directory for this timestamp (don't pollute the repo directory with multiple builds)
+if [ -d $TARGET_DIR/blaze_tensor ]
+then
+  rm -rf $TARGET_DIR/blaze_tensor
+fi
+mkdir $TARGET_DIR/blaze_tensor
+cd $TARGET_DIR/blaze_tensor
+# Build blaze
+cmake $BLAZE_TENSOR_PARAMS $BLAZE_TENSOR_REPO |& tee -a $LOG_FILE
+make -j $USE_PROCS -l $USE_PROCS |& tee -a $LOG_FILE
+echo "Blaze tensor build completed" |& tee -a $LOG_FILE
 
 # Set up Phylanx build
 PHYLANX_REPO=${PHYLANX_REPO:-"$HOME/phylanx"}
@@ -77,7 +125,7 @@ cd $TARGET_DIR/phylanx
 # Build Phylanx
 cmake $PHYLANX_PARAMS $PHYLANX_REPO |& tee -a $LOG_FILE
 make -j $USE_PROCS -l $USE_PROCS |& tee -a $LOG_FILE
-echo "Phylanx build completed successfully" |& tee -a $LOG_FILE
+echo "Phylanx build completed" |& tee -a $LOG_FILE
 
 # Copy scripts that we want to run
 cp $PHYLANX_REPO/examples/algorithms/als/als.physl $TARGET_DIR/als.physl
