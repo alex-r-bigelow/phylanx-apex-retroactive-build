@@ -87,7 +87,7 @@ make install
 echo "Blaze build completed" |& tee -a $LOG_FILE
 
 # Set up / build blaze tensor
-BLAZE_TENSOR_REPO=${BLAZE_REPO:-"$HOME/blaze"}
+BLAZE_TENSOR_REPO=${BLAZE_TENSOR_REPO:-"$HOME/blaze_tensor"}
 echo "Using blaze_tensor repository at $BLAZE_TENSOR_REPO" |& tee -a $LOG_FILE
 # Clone blaze if needed
 if [ ! -d $BLAZE_TENSOR_REPO ]
