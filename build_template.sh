@@ -19,7 +19,7 @@ if [ ! -d $OTF2_DIR/$OTF2_VERSION ]
 then
   echo "Installing OTF2 $OTF2_VERSION in $OTF2_DIR" |& tee -a $LOG_FILE
   cd $OTF2_DIR
-  wget http://www.vi-hps.org/upload/packages/otf2/otf2-$OTF2_VERSION.tar.gz |& tee -a $LOG_FILE
+  wget https://www.vi-hps.org/cms/upload/packages/otf2/otf2-$OTF2_VERSION.tar.gz |& tee -a $LOG_FILE
   tar -xzf otf2-$OTF2_VERSION.tar.gz |& tee -a $LOG_FILE
   cd otf2-$OTF2_VERSION
   ./configure CC=clang CXX=clang++ --prefix=$OTF2_DIR/$OTF2_VERSION --enable-shared |& tee -a $LOG_FILE
