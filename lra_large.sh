@@ -5,9 +5,9 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 for THREADS in 1 2 4 8 16 24 32 36
 do
   echo "Running with $THREADS threads"
-  rm -rf run$THREADS
-  mkdir run$THREADS
-  cd run$THREADS
+  rm -rf lra_large$THREADS
+  mkdir lra_large$THREADS
+  cd lra_large$THREADS
   srun -n 1 $TARGET_DIR/phylanx/bin/lra_csv_instrumented \
     -t $THREADS \
     --data_csv=/phylanx-data/CSV/10kx10k.csv \
